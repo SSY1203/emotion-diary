@@ -12,7 +12,7 @@ const DiaryEditor = () => {
   const [date, setDate] = useState(getStringDate(new Date()));
   const navigate = useNavigate();
   return (
-    <div className="New">
+    <div className="DiaryEditor">
       <Header
         headText={'새 일기 쓰기'}
         leftChild={<Button text="< 뒤로가기" onClick={() => navigate(-1)} />}
