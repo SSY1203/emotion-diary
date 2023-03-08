@@ -223,6 +223,19 @@ header button {
   gap: 2%;
 }
 
+.DiaryEditor textarea {
+  font-family: 'Gamja Flower', cursive;
+  font-size: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  padding: 20px;
+}
+
 /* Emotion Item */
 .EmotionItem {
   cursor: pointer;
