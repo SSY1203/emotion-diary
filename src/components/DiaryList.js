@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
+import DiaryItem from './DiaryItem';
 
 const sortOptionList = [
   { value: 'lastest', name: '최신순' },
@@ -62,9 +63,7 @@ const DiaryList = ({ diaryList }) => {
       </div>
       <ul>
         {getProcessedDiaryList().map(item => (
-          <li key={item.id}>
-            {item.content} {item.emotion}
-          </li>
+          <DiaryItem key={item.id} {...item} />
         ))}
       </ul>
     </div>
