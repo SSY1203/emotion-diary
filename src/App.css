@@ -32,3 +32,19 @@ body {
   min-height: 100vh;
   padding: 0 20px;
 }
+
+/* MyButton */
+.MyButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  white-space: nowrap;
+  font-family: 'Nanum Gothic Coding';
+}
+
+.MyButton:hover {
+  /* background-color: rgb(230, 230, 230); */
+  opacity: 0.7;
+}
