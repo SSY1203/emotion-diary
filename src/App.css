@@ -10,6 +10,12 @@ body {
   margin: 0;
 }
 
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
 @media (min-width: 650px) {
   .App {
     width: 640px;
