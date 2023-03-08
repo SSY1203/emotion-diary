@@ -59,7 +59,7 @@ const dummyDate = [
     id: 4,
     emotion: 2,
     content: '오늘의 일기 4',
-    date: 1678242874620,
+    date: 1677500000000,
   },
   {
     id: 5,
@@ -119,7 +119,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>
