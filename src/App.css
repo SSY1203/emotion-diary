@@ -243,3 +243,24 @@ header button {
 .EmotionItem span {
   font-size: 18px;
 }
+
+.EmotionItem.selected_1 {
+  background-color: #64c964;
+  color: white;
+}
+.EmotionItem.selected_2 {
+  background-color: #9dd772;
+  color: white;
+}
+.EmotionItem.selected_3 {
+  background-color: #fdce17;
+  color: white;
+}
+.EmotionItem.selected_4 {
+  background-color: #fd8446;
+  color: white;
+}
+.EmotionItem.selected_5 {
+  background-color: #fd565f;
+  color: white;
+}
