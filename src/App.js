@@ -16,6 +16,8 @@ function App() {
         {/* process.env.PUBLIC_URL은 public directory에 대한 경로를 바로 쓸 수 있게 해주는 코드 */}
         {/* <img src={process.env.PUBLIC_URL + `assets/emotion1.png`} alt="매우 기쁜 표정" /> */}
         <MyButton text={'버튼'} onClick={() => alert('버튼 클릭')} type="positive" />
+        <MyButton text={'버튼'} onClick={() => alert('버튼 클릭')} type="negative" />
+        <MyButton text={'버튼'} onClick={() => alert('버튼 클릭')} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<New />} />
