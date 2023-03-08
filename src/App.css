@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 
 body {
   background-color: #f6f6f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Nanum Gothic Coding';
+  font-family: 'Gamja Flower', cursive;
   min-height: 100vh;
   margin: 0;
 }
@@ -41,7 +41,7 @@ body {
   padding: 10px 20px;
   font-size: 18px;
   white-space: nowrap;
-  font-family: 'Nanum Gothic Coding';
+  font-family: 'Gamja Flower', cursive;
 }
 
 .MyButton:hover {
@@ -61,4 +61,40 @@ body {
 .MyButton_negative {
   background-color: #fd565f;
   color: white;
+}
+
+/* Header */
+header {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+header > div {
+  display: flex;
+}
+
+header .head_text {
+  width: 50%;
+  font-size: 25px;
+  justify-content: center;
+}
+
+header .head_button_left,
+header .head_button_right {
+  width: 25%;
+}
+
+header .head_button_left {
+  justify-content: start;
+}
+
+header .head_button_right {
+  justify-content: end;
+}
+
+header button {
+  font-family: 'Gamja Flower', cursive;
 }
