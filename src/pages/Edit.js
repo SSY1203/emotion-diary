@@ -13,7 +13,12 @@ const Edit = () => {
     if (diaryList.length >= 1) {
       const targetDiary = diaryList.find(item => parseInt(item.id) === parseInt(id));
 
-      targetDiary ? setOriginData(targetDiary) : navigate('/', { replace: true });
+      if (targetDiary) {
+        setOriginData(targetDiary);
+      } else {
+        alert('없는 일기입니다.');
+        navigate('/', { replace: true });
+      }
     }
   }, [id, diaryList]);
   return (

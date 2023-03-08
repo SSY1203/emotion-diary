@@ -5,38 +5,8 @@ import { DiaryDispatchContext } from '../App';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import EmotionItem from './EmotionItem';
-
-const emotionList = [
-  {
-    emotion_id: 1,
-    emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
-    emotion_descript: '완전 좋음',
-  },
-  {
-    emotion_id: 2,
-    emotion_img: process.env.PUBLIC_URL + `/assets/emotion2.png`,
-    emotion_descript: '좋음',
-  },
-  {
-    emotion_id: 3,
-    emotion_img: process.env.PUBLIC_URL + `/assets/emotion3.png`,
-    emotion_descript: '보통',
-  },
-  {
-    emotion_id: 4,
-    emotion_img: process.env.PUBLIC_URL + `/assets/emotion4.png`,
-    emotion_descript: '나쁨',
-  },
-  {
-    emotion_id: 5,
-    emotion_img: process.env.PUBLIC_URL + `/assets/emotion5.png`,
-    emotion_descript: '완전 나쁨',
-  },
-];
-
-const getStringDate = date => {
-  return date.toISOString().slice(0, 10);
-};
+import { getStringDate } from '../utils/date';
+import { emotionList } from './../utils/emotion';
 
 const DiaryEditor = ({ isEdit, originData }) => {
   const { onCreate, onEdit } = useContext(DiaryDispatchContext);
@@ -79,6 +49,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
       <Header
         headText={isEdit ? '일기 수정하기' : '새 일기 쓰기'}
         leftChild={<Button text="< 뒤로가기" onClick={() => navigate(-1)} />}
+        rightChild={isEdit ? <Button type={'negative'} text={'삭제하기'} /> : null}
       />
       <div>
         <section>
