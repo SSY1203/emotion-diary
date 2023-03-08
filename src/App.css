@@ -216,3 +216,30 @@ header button {
   font-family: 'Gamja Flower', cursive;
   font-size: 20px;
 }
+
+.DiaryEditor .emotion_list_wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 2%;
+}
+
+/* Emotion Item */
+.EmotionItem {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ececec;
+}
+
+.EmotionItem img {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.EmotionItem span {
+  font-size: 18px;
+}
