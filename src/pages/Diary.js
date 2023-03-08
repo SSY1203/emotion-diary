@@ -7,6 +7,7 @@ import Button from '../components/Button';
 
 import { getStringDate } from '../utils/date';
 import { emotionList } from './../utils/emotion';
+import classNames from 'classnames';
 
 const Diary = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Diary = () => {
         <article>
           <section>
             <h4>오늘의 감정</h4>
-            <div className="diary_img_wrapper">
+            <div className={classNames('diary_img_wrapper', `diary_img_wrapper_${data.emotion}`)}>
               <img src={currentEmotionData.emotion_img} alt="감정 이미지" />
               <div className="emotion_descript">{currentEmotionData.emotion_descript}</div>
             </div>
