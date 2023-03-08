@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DiaryDispatchContext } from '../App';
 
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -38,6 +39,7 @@ const getStringDate = date => {
 };
 
 const DiaryEditor = () => {
+  const { onCreate } = useContext(DiaryDispatchContext);
   const contentRef = useRef();
   const [content, setContent] = useState('');
   const [emotion, setEmotion] = useState(3);
@@ -46,6 +48,15 @@ const DiaryEditor = () => {
   const navigate = useNavigate();
 
   const handleClickEmote = emotion => setEmotion(emotion);
+
+  const handleSubmit = () => {
+    if (content.length < 1) {
+      contentRef.current.focus();
+      return;
+    }
+    onCreate(date, content, emotion);
+    navigate('/', { replace: true });
+  };
 
   return (
     <div className="DiaryEditor">
@@ -92,7 +103,7 @@ const DiaryEditor = () => {
         <section>
           <div className="control_box">
             <Button text="취소하기" onClick={() => navigate(-1)} />
-            <Button text="작성완료" type={'positive'} onClick={() => {}} />
+            <Button text="작성완료" type={'positive'} onClick={handleSubmit} />
           </div>
         </section>
       </div>
