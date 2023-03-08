@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const MyButton = ({ text, type, onClick }) => {
+const Button = ({ text, type, onClick }) => {
   const buttonType = ['positive', 'negative'].includes(type) ? type : 'default';
 
   return (
@@ -11,15 +11,15 @@ const MyButton = ({ text, type, onClick }) => {
   );
 };
 
-MyButton.propTypes = {
+Button.propTypes = {
   type: PropTypes.string,
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-MyButton.defaultProps = {
+Button.defaultProps = {
   type: 'default',
   text: '버튼',
 };
 
-export default MyButton;
+export default Button;
