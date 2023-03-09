@@ -28,6 +28,12 @@ const Diary = () => {
     }
   }, [id, diaryList]);
 
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName('title')[0];
+    console.log(titleElement);
+    titleElement.innerHTML = `Emotion 일기장 - ${id}번 일기`;
+  }, []);
+
   if (!data) return <div className="DiaryPage">로딩중입니다...</div>;
   else {
     const currentEmotionData = emotionList.find(
