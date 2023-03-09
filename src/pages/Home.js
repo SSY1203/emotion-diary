@@ -27,6 +27,11 @@ const Home = () => {
     }
   }, [diaryList, nowDate]);
 
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName('title')[0];
+    titleElement.innerHTML = `Emotion 일기장`;
+  }, []);
+
   const increaseMonth = () => {
     setNowDate(new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate()));
   };
