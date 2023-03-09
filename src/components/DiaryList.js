@@ -33,7 +33,7 @@ const DiaryList = ({ diaryList }) => {
 
   const getProcessedDiaryList = () => {
     const filterCallBack = item =>
-      filter === 'good' ? parseInt(item.emotion) >= 3 : parseInt(item.emotion) < 3;
+      filter === 'good' ? parseInt(item.emotion) <= 3 : parseInt(item.emotion) > 3;
 
     const compare = (a, b) => {
       if (sortType === 'lastest') {
