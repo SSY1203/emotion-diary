@@ -7,7 +7,7 @@ import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 
-interface DiaryDataType {
+export interface DiaryDataType {
   id: number;
   date: number;
   emotion: number;
@@ -20,7 +20,7 @@ type ActionType =
   | { type: 'REMOVE'; targetId: number }
   | { type: 'EDIT'; data: DiaryDataType };
 
-interface DispatchType {
+export interface DispatchType {
   onCreate: (date: number, content: string, emotion: number) => void;
   onRemove: (targetId: number) => void;
   onEdit: (targetId: number, date: number, content: string, emotion: number) => void;

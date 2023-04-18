@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
-import { DiaryStateContext } from '../App';
+import React, { useContext, useEffect, useState } from 'react';
+import { DiaryDataType, DiaryStateContext } from '../App';
 import Header from './../components/Header';
 import Button from './../components/Button';
 import DiaryList from './../components/DiaryList';
 
 const Home = () => {
-  const diaryList = useContext(DiaryStateContext);
+  const diaryList = useContext<DiaryDataType[]>(DiaryStateContext);
 
-  const [data, setData] = useState([]);
-  const [nowDate, setNowDate] = useState(new Date());
-  const headText = `${nowDate.getFullYear()}년 ${nowDate.getMonth() + 1}월`;
+  const [data, setData] = useState<DiaryDataType[]>([]);
+  const [nowDate, setNowDate] = useState<Date>(new Date());
+  const headText: string = `${nowDate.getFullYear()}년 ${nowDate.getMonth() + 1}월`;
 
   useEffect(() => {
     if (diaryList.length >= 1) {
-      const firstDay = new Date(nowDate.getFullYear(), nowDate.getMonth(), 1).getTime();
-      const lastDay = new Date(
+      const firstDay: number = new Date(nowDate.getFullYear(), nowDate.getMonth(), 1).getTime();
+      const lastDay: number = new Date(
         nowDate.getFullYear(),
         nowDate.getMonth() + 1,
         0,
@@ -28,7 +28,7 @@ const Home = () => {
   }, [diaryList, nowDate]);
 
   useEffect(() => {
-    const titleElement = document.getElementsByTagName('title')[0];
+    const titleElement: HTMLElement = document.getElementsByTagName('title')[0];
     titleElement.innerHTML = `Emotion 일기장`;
   }, []);
 
