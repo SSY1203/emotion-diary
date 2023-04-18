@@ -1,13 +1,33 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
+
 import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 
-const reducer = (state, action) => {
-  let newState = [];
+interface DiaryDataType {
+  id: number;
+  date: number;
+  emotion: number;
+  content: string;
+}
+
+type ActionType =
+  | { type: 'INIT'; data: DiaryDataType[] }
+  | { type: 'CREATE'; data: DiaryDataType }
+  | { type: 'REMOVE'; targetId: number }
+  | { type: 'EDIT'; data: DiaryDataType };
+
+interface DispatchType {
+  onCreate: (date: number, content: string, emotion: number) => void;
+  onRemove: (targetId: number) => void;
+  onEdit: (targetId: number, date: number, content: string, emotion: number) => void;
+}
+
+const reducer = (state: DiaryDataType[], action: ActionType): DiaryDataType[] => {
+  let newState: DiaryDataType[] = [];
   switch (action.type) {
     case 'INIT': {
       return action.data;
@@ -31,29 +51,32 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const DiaryStateContext = React.createContext();
+export const DiaryStateContext = React.createContext<DiaryDataType[]>([] as DiaryDataType[]);
 DiaryStateContext.displayName = 'DiaryStateContext';
 
-export const DiaryDispatchContext = React.createContext();
+export const DiaryDispatchContext = React.createContext<DispatchType>({} as DispatchType);
 DiaryDispatchContext.displayName = 'DiaryDispatchContext';
 
+const initialStateFunc = (): DiaryDataType[] => [];
 function App() {
-  const [data, dispatch] = useReducer(reducer, []);
-  const dataId = useRef(0);
+  const [data, dispatch] = useReducer(reducer, [], initialStateFunc);
+  const dataId = useRef<number>(0);
 
   useEffect(() => {
     const localData = localStorage.getItem('diaryList');
 
     if (localData) {
-      const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id));
-      if (diaryList.length >= 1) dataId.current = parseInt(diaryList[0].id) + 1;
+      const diaryList: DiaryDataType[] = JSON.parse(localData).sort(
+        (a: DiaryDataType, b: DiaryDataType) => b.id - a.id,
+      );
+      if (diaryList.length >= 1) dataId.current = diaryList[0].id + 1;
       dispatch({ type: 'INIT', data: diaryList });
     } else {
     }
   }, []);
 
   // CREATE
-  const onCreate = (date, content, emotion) => {
+  const onCreate = (date: number, content: string, emotion: number) => {
     dispatch({
       type: 'CREATE',
       data: {
@@ -67,12 +90,12 @@ function App() {
   };
 
   // REMOVE
-  const onRemove = targetId => {
+  const onRemove = (targetId: number) => {
     dispatch({ type: 'REMOVE', targetId });
   };
 
   // EDIT
-  const onEdit = (targetId, date, content, emotion) => {
+  const onEdit = (targetId: number, date: number, content: string, emotion: number) => {
     dispatch({
       type: 'EDIT',
       data: {
