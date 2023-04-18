@@ -1,4 +1,10 @@
-export const emotionList = [
+export interface EmotionListType {
+  emotion_id: number;
+  emotion_img: string;
+  emotion_descript: string;
+}
+
+export const emotionList: EmotionListType[] = [
   {
     emotion_id: 1,
     emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
