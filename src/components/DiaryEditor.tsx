@@ -1,6 +1,6 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { LegacyRef, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DiaryDispatchContext } from '../App';
+import { DiaryDataType, DiaryDispatchContext, DispatchType } from '../App';
 
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -8,20 +8,25 @@ import EmotionItem from './EmotionItem';
 import { getStringDate } from '../utils/date';
 import { emotionList } from './../utils/emotion';
 
-const DiaryEditor = ({ isEdit, originData }) => {
-  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
-  const contentRef = useRef();
-  const [content, setContent] = useState('');
-  const [emotion, setEmotion] = useState(3);
-  const [date, setDate] = useState(getStringDate(new Date()));
+interface DiaryEditorProp {
+  isEdit?: boolean;
+  originData?: DiaryDataType;
+}
+
+const DiaryEditor = ({ isEdit, originData }: DiaryEditorProp) => {
+  const { onCreate, onEdit, onRemove } = useContext<DispatchType>(DiaryDispatchContext);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const [content, setContent] = useState<string>('');
+  const [emotion, setEmotion] = useState<number>(3);
+  const [date, setDate] = useState<number>(getStringDate(new Date()));
 
   const navigate = useNavigate();
 
-  const handleClickEmote = useCallback(emotion => setEmotion(emotion), []);
+  const handleClickEmote = useCallback((emotion: number) => setEmotion(emotion), []);
 
   const handleSubmit = () => {
     if (content.length < 1) {
-      contentRef.current.focus();
+      contentRef.current?.focus();
       return;
     }
 
@@ -29,7 +34,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
       if (!isEdit) {
         onCreate(date, content, emotion);
       } else {
-        onEdit(originData.id, date, content, emotion);
+        onEdit(originData?.id || 0, date, content, emotion);
       }
     }
 
@@ -38,18 +43,23 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
   const handleRemove = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      onRemove(originData.id);
+      onRemove(originData?.id || 0);
       navigate('/', { replace: true });
     }
   };
 
   useEffect(() => {
     if (isEdit) {
-      setDate(getStringDate(new Date(parseInt(originData.date))));
-      setEmotion(originData.emotion);
-      setContent(originData.content);
+      setDate(getStringDate(new Date(originData?.date || new Date().getTime())));
+      setEmotion(originData?.emotion || 3);
+      setContent(originData?.content || '');
     }
   }, [isEdit, originData]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDate(parseInt(value));
+  };
 
   return (
     <div className="DiaryEditor">
@@ -62,12 +72,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         <section>
           <h4>오늘은 언제인가요?</h4>
           <div className="input_box">
-            <input
-              className="input_date"
-              value={date}
-              type="date"
-              onChange={e => setDate(e.target.value)}
-            />
+            <input className="input_date" value={date} type="date" onChange={handleChange} />
           </div>
         </section>
         <section>
@@ -75,7 +80,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
           <div className="input_box emotion_list_wrapper">
             {emotionList.map(item => (
               <EmotionItem
-                key={item.id}
+                key={item.emotion_id}
                 {...item}
                 onClick={handleClickEmote}
                 isSelected={item.emotion_id === emotion}
