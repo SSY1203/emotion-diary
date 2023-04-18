@@ -1,23 +1,24 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DiaryStateContext } from '../App';
 
 import Header from './../components/Header';
 import Button from '../components/Button';
 
 import { getStringDate } from '../utils/date';
-import { emotionList } from './../utils/emotion';
+import { EmotionListType, emotionList } from './../utils/emotion';
 import classNames from 'classnames';
+import { DiaryDataType } from './../App';
 
 const Diary = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const diaryList = useContext(DiaryStateContext);
-  const [data, setData] = useState();
+  const { id } = useParams<string>();
+  const diaryList = useContext<DiaryDataType[]>(DiaryStateContext);
+  const [data, setData] = useState<DiaryDataType>();
 
   useEffect(() => {
     if (diaryList.length >= 1) {
-      const targetDiary = diaryList.find(item => parseInt(item.id) === parseInt(id));
+      const targetDiary: DiaryDataType | undefined = diaryList.find(item => String(item.id) === id);
 
       if (targetDiary) {
         setData(targetDiary);
@@ -29,14 +30,14 @@ const Diary = () => {
   }, [id, diaryList]);
 
   useEffect(() => {
-    const titleElement = document.getElementsByTagName('title')[0];
+    const titleElement: HTMLElement = document.getElementsByTagName('title')[0];
     titleElement.innerHTML = `Emotion 일기장 - ${id}번 일기`;
   }, []);
 
   if (!data) return <div className="DiaryPage">로딩중입니다...</div>;
   else {
-    const currentEmotionData = emotionList.find(
-      item => parseInt(item.emotion_id) === parseInt(data.emotion),
+    const currentEmotionData: EmotionListType | undefined = emotionList.find(
+      item => item.emotion_id === data.emotion,
     );
     return (
       <div className="DiaryPage">
@@ -49,8 +50,8 @@ const Diary = () => {
           <section>
             <h4>오늘의 감정</h4>
             <div className={classNames('diary_img_wrapper', `diary_img_wrapper_${data.emotion}`)}>
-              <img src={currentEmotionData.emotion_img} alt="감정 이미지" />
-              <div className="emotion_descript">{currentEmotionData.emotion_descript}</div>
+              <img src={currentEmotionData?.emotion_img} alt="감정 이미지" />
+              <div className="emotion_descript">{currentEmotionData?.emotion_descript}</div>
             </div>
           </section>
           <section>
