@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DiaryStateContext } from '../App';
+import { DiaryDataType, DiaryStateContext } from '../App';
 import DiaryEditor from '../components/DiaryEditor';
 
 const Edit = () => {
-  const [originData, setOriginData] = useState();
+  const [originData, setOriginData] = useState<DiaryDataType>();
   const navigate = useNavigate();
-  const { id } = useParams();
-  const diaryList = useContext(DiaryStateContext);
+  const { id } = useParams<string>();
+  const diaryList = useContext<DiaryDataType[]>(DiaryStateContext);
 
   useEffect(() => {
     if (diaryList.length >= 1) {
-      const targetDiary = diaryList.find(item => parseInt(item.id) === parseInt(id));
+      const targetDiary: DiaryDataType | undefined = diaryList.find(item => String(item.id) === id);
 
       if (targetDiary) {
         setOriginData(targetDiary);
@@ -23,7 +23,7 @@ const Edit = () => {
   }, [id, diaryList]);
 
   useEffect(() => {
-    const titleElement = document.getElementsByTagName('title')[0];
+    const titleElement: HTMLElement = document.getElementsByTagName('title')[0];
     titleElement.innerHTML = `Emotion 일기장 - ${id}번 일기 수정`;
   }, []);
 
