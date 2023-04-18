@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
+import { DiaryDataType } from './../App';
 
-const DiaryItem = ({ id, content, emotion, date }) => {
+const DiaryItem = ({ id, content, emotion, date }: DiaryDataType) => {
   const navigate = useNavigate();
-  const strDate = new Date(parseInt(date)).toLocaleDateString();
+  const strDate = new Date(date).toLocaleDateString();
 
   const goDetail = () => {
     navigate(`/diary/${id}`);
