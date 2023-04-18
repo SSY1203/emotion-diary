@@ -1,4 +1,12 @@
-const Header = ({ leftChild, headText, rightChild }) => {
+import React from 'react';
+
+interface HeaderProp {
+  leftChild: React.ReactNode;
+  headText: string;
+  rightChild: React.ReactNode;
+}
+
+const Header = ({ leftChild, headText, rightChild }: HeaderProp) => {
   return (
     <header>
       <div className="head_button_left">{leftChild}</div>
