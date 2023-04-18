@@ -20,12 +20,12 @@ const Edit = () => {
         navigate('/', { replace: true });
       }
     }
-  }, [id, diaryList]);
+  }, [id, diaryList, navigate]);
 
   useEffect(() => {
     const titleElement: HTMLElement = document.getElementsByTagName('title')[0];
     titleElement.innerHTML = `Emotion 일기장 - ${id}번 일기 수정`;
-  }, []);
+  }, [id]);
 
   return (
     <div className="Edit">
